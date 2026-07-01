@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "dxt_examon: Parallel data extraction and backup for Examon HPC monitoring telemetry"
+abstract: >-
+  A Python tool for bulk data extraction (DXT) and daily backup of holistic monitoring
+  telemetry from the Examon HPC monitoring framework. It queries Examon's KairosDB
+  time-series backend through the ExamonQL interface and exports per-metric, per-plugin
+  time-series from the Marconi100 supercomputer at CINECA as gzip-compressed CSV files,
+  using incremental follow-file tracking, gap back-filling, and Python multiprocessing.
+type: software
+authors:
+  - family-names: "Seyedkazemi Ardebili"
+    given-names: "Mohsen"
+repository-code: "https://github.com/MSKazemi/dxt_examon"
+license: Apache-2.0
+keywords:
+  - HPC monitoring
+  - supercomputer telemetry
+  - Examon
+  - KairosDB
+  - time-series
+  - data extraction
+  - Marconi100
+  - CINECA
+  - Python
