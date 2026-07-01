@@ -1,0 +1,41 @@
+# dxt_examon
+
+> Parallel Python tool for bulk data extraction (DXT) and daily backup of Examon HPC
+> monitoring telemetry from the Marconi100 supercomputer at CINECA. It queries Examon's
+> KairosDB time-series database through the ExamonQL interface and exports per-metric,
+> per-plugin time-series as gzip-compressed CSV files, with incremental "follow file"
+> tracking, gap back-filling, and Python multiprocessing.
+
+Author: Mohsen Seyedkazemi Ardebili.
+License: Apache-2.0.
+Language: Python.
+
+Note: "DXT" here means *data extraction*. This project is unrelated to Darshan DXT
+(I/O tracing); it does not profile application I/O.
+
+## What it does
+
+- Connects to an Examon monitoring server via `ExamonQL` (Examon over a KairosDB time-series database).
+- Reads metric/plugin pairs from `M100_metrics.csv` (Marconi100 metric catalog, ~26,900 metrics).
+- Downloads each metric day by day, filtered to `cluster='marconi100'`, and saves gzip CSVs under `plugin/metric/`.
+- Tracks progress per metric in follow files (`<plugin>_<metric>_follow_dxt.csv`) for incremental, resumable runs.
+- Parallelizes extraction with Python `multiprocessing`.
+
+## Data sources (Examon plugins)
+
+Ganglia (`ganglia_pub`, node/GPU metrics), IPMI (`ipmi_pub`), Slurm scheduler (`slurm_pub`),
+Nagios (`nagios_pub`), Schneider power (`schneider_pub`), Vertiv cooling (`vertiv_pub`),
+weather (`weather_pub`), Logics (`logics_pub`), and Slurm job accounting (`job_info_marconi100`).
+
+## Key files
+
+- README.md: overview, problem statement, configuration, and run instructions.
+- dailyBackup_Parallel.py: daily incremental backup of the previous day's telemetry, in parallel.
+- tryagain.py: gap-filler that re-downloads only missing days ("holes") using follow files.
+- M100_metrics.csv: catalog of `metric,plugin` pairs to extract for Marconi100.
+- LICENSE: Apache License 2.0.
+
+## Topics
+
+HPC monitoring, supercomputer telemetry, Examon, KairosDB, time-series, data extraction,
+Marconi100, CINECA, Ganglia, IPMI, Slurm, Nagios, Python, pandas, multiprocessing.
